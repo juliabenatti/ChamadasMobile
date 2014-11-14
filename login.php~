@@ -1,0 +1,37 @@
+<?php 
+session_start();
+$email = $_POST['email'];
+$senha = $_POST['senha'];
+$con = mysql_connect("localhost", "root", "zaq12wsx") or die ("Sem conexão com o servidor");
+$select = mysql_select_db("ChamadaMobile") or die("Sem acesso ao DB, Entre em contato com o Administrador");
+$result = mysql_query("Select * from Usuario where email = '$email' and senha = '$senha';");
+	if(mysql_num_rows($result) > 0){
+		$_SESSION['email'] = $email;
+		$_SESSION['senha'] = $senha;
+		header('location:fazerchamada.php');
+	}else{
+		echo "else";
+		unset($_SESSION['email']);
+		unset($_SESSISON['senha']);
+		header('location:login.html');
+	}
+?>
+
+
+
+
+
+/*
+$sql = "Select * from Usuario where email = '$email' and senha = '$senha';";
+$result = mysqli_query($mysqli, $sql) or die ("Erro");
+if(mysqli_num_rows($result) > 0){
+	$_SESSION['email'] = $email;
+	$_SESSION['senha'] = $senha;
+	header('location:fazerchamada.php');
+}else{
+	unset($_SESSION['email']);
+	unset($_SESSION['senha']);
+	header('location:login.html');
+}
+
+?>*/
